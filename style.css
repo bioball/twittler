@@ -1,0 +1,106 @@
+@import url(http://fonts.googleapis.com/css?family=Dosis:800);
+
+body {
+	font-family: 'Helvetica', 'Arial', sans-serif;
+	background-color: #c0ddeb;
+	background-image: url(img/bg.png);
+	background-repeat: no-repeat;
+}
+
+a {
+	color: #888;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #2BA9ED;
+	text-decoration: underline;
+}
+
+.navbar {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	height: 40px;
+	width: 100%;
+	background-image: url(img/navbar.png);
+	background-color: #000;
+	z-index: 1000;
+}
+
+.logo {
+	color: #61D7FF;
+	margin-left: 150px;
+	text-transform: lowercase;
+	font-family: 'Dosis', sans-serif;
+	font-size: 1.8em;
+	letter-spacing: 2px;
+}
+
+.logo:hover {
+	color: #FFF;
+}
+
+.outerbox {
+	background-color: rgba(255,255,255,0.3);
+	position: absolute;
+	margin: 0 auto;
+	left: 0; 
+	right: 0;
+	width: 550px;
+	top: 40px;
+}
+
+.updatebox {
+	font-size: .8em;
+	border-radius: 5px;
+	margin: 18px;
+	border: 1x solid #EBEBEB;
+	background-color: #F5F0E6;
+	padding: 10px;
+	font-weight: bold;
+}
+
+.updatebox a {
+	color: #555;
+}
+
+.updatebox a:hover {
+	color: #2BA9ED;
+}
+
+.updatebox:hover {
+	background-color: #F0EADF;
+}
+
+.user {
+	font-size: .8em;
+	display: block;
+}
+
+.tweet {
+	padding: 10px;
+	border-bottom: 1px solid #EBEBEB;
+	background-color: #FFFFFF;
+}
+
+.tweet:hover {
+	background-color: #F5F5F5;
+}
+
+.tweetbox {	
+	border-radius: 5px;
+	margin: 18px;
+	border: 1px solid #EBEBEB;
+}
+
+.message {
+	line-height: 20px;
+	font-size: 0.9em;
+	color: #000;
+}
+
+.timestamp {
+	font-size: .8em;
+	color: #888;
+}

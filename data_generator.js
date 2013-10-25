@@ -11,6 +11,7 @@ streams.users.shawndrost = [];
 streams.users.sharksforcheap = [];
 streams.users.mracus = [];
 streams.users.douglascalhoun = [];
+streams.tweetCount = 0;
 window.users = Object.keys(streams.users);
 
 // utility function for adding tweets to our data structures
@@ -52,9 +53,10 @@ for(var i = 0; i < 10; i++){
 
 var scheduleNextTweet = function(){
   generateRandomTweet();
-  setTimeout(scheduleNextTweet, Math.random() * 1500);
+  heyYouHaveATweet();
+  setTimeout(scheduleNextTweet, Math.random() * 15000);
 };
-scheduleNextTweet();
+
 
 // utility function for letting students add "write a tweet" functionality
 // (note: not used by the rest of this file.)

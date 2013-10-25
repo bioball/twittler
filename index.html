@@ -1,27 +1,81 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link href="style.css" rel="stylesheet"></link>
     <script src="jquery.js"></script>
+    <script src="timeago.js"></script>
     <script src="data_generator.js"></script>
+    <title>Twittler</title>
   </head>
-  <body>
+  <body background="img/1296296293bg.gif">
+    <div class="navbar">
+      <div class="logo">
+        Twittler
+      </div>
+    </div>
+    <div class="outerbox">
+      <div class="tweetbox">
+      </div>
+    </div>
     <script>
 
-      $(document).ready(function(){
-        var $body = $('body');
-        $body.html('');
 
-        var index = streams.home.length - 1;
-        while(index >= 0){
-          var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.appendTo($body);
-          index -= 1;
-        }
+    window.heyYouHaveATweet = function(){
+      streams.tweetCount += 1;
+      if($('.updatebox').length === 0){
+        var $updateBox = $('<div class="updatebox" style="display: none;"></div>');
+        $('.outerbox').prepend($updateBox);
+        $('<a href="#" class="tweetcount">You have ' + streams.tweetCount + ' new tweet</a>').appendTo($('.updatebox'));
+        $('.updatebox').slideDown('fast');
+      } else {
+        $('.tweetcount').text('You have ' + streams.tweetCount + ' new tweets')
+      }
+      $('.tweetcount').on('click', function(){
+        fetchAll();
+        $(this).closest('.updatebox').slideUp('fast', function(){
+          $(this).closest('.updatebox').remove();
+        });
+        streams.tweetCount = 0;
+      });
+    };
+
+    var postTweets = function(source){
+      $('.tweetbox').html('');
+      var index = source.length - 1
+      while(index >= 0){
+        var tweet = source[index];
+        var $tweet = $('<div class="tweet"></div>');
+        var time = tweet.created_at.toISOString();
+
+        $('<div class="message"><a href="#" class="user">@' + tweet.user + '</a>' + tweet.message + '</div>').appendTo($tweet);
+        $('<time class="timestamp" datetime="' + time + '"></time>').appendTo($tweet);
+        $tweet.appendTo($('.tweetbox'));
+
+        index -= 1;
+
+      }
+      $('time.timestamp').timeago();
+    };
+
+    var fetchAll = function(){
+      postTweets(streams.home);
+    };
+
+    var fetchUserPosts = function(user){
+      postTweets(streams.users[user]);
+    };
+
+      $(document).ready(function(){
+        fetchAll();
+        setTimeout(scheduleNextTweet, 5000);
+        $('a.user').on('click', function(evemt){
+          event.preventDefault();
+          fetchUserPosts($(this).text().slice(1));
+        });
 
       });
 
     </script>
+
   </body>
 </html>
