@@ -17,6 +17,13 @@ a:hover {
 	text-decoration: underline;
 }
 
+em {
+	font-weight: bold;
+	font-style: normal;
+	font-size: 1.3em;
+	color: #444;
+}
+
 .navbar {
 	position: fixed;
 	top: 0px;
@@ -76,6 +83,18 @@ a:hover {
 .user {
 	font-size: .8em;
 	display: block;
+}
+
+.tweethead {
+	padding: 10px;
+	border-bottom: 1px solid #EBEBEB;
+	background-color: #FFFFFF;
+	color: #333;
+	font-size: .9em;
+}
+
+.tweethead a {
+	color: #2BA9ED;
 }
 
 .tweet {

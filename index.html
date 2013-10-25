@@ -15,6 +15,9 @@
     </div>
     <div class="outerbox">
       <div class="tweetbox">
+        <div class="tweethead">
+          <em>Tweets</em> / <a href="#" class="alltweets">all</a>
+        </div>
       </div>
     </div>
     <script>
@@ -30,17 +33,10 @@
       } else {
         $('.tweetcount').text('You have ' + streams.tweetCount + ' new tweets')
       }
-      $('.tweetcount').on('click', function(){
-        fetchAll();
-        $(this).closest('.updatebox').slideUp('fast', function(){
-          $(this).closest('.updatebox').remove();
-        });
-        streams.tweetCount = 0;
-      });
     };
 
     var postTweets = function(source){
-      $('.tweetbox').html('');
+      $('.tweet').remove();
       var index = source.length - 1
       while(index >= 0){
         var tweet = source[index];
@@ -57,22 +53,34 @@
       $('time.timestamp').timeago();
     };
 
-    var fetchAll = function(){
-      postTweets(streams.home);
-    };
-
-    var fetchUserPosts = function(user){
-      postTweets(streams.users[user]);
+    var fetch = function(source, username){
+      if(typeof source === 'undefined'){
+        source = 'home';
+      }
+      typeof username === 'undefined' ? postTweets(streams[source]) : postTweets(streams[source][username]);
     };
 
       $(document).ready(function(){
-        fetchAll();
+        fetch();
         setTimeout(scheduleNextTweet, 5000);
-        $('a.user').on('click', function(evemt){
+
+        //fetch just the user's posts
+        $(document).on('click', 'a.user', function(evemt){
           event.preventDefault();
-          fetchUserPosts($(this).text().slice(1));
+          var clickedUser = $(this).text().slice(1);
+          fetch('users', clickedUser);
+          $('<span id="tweetuser"> / @' + clickedUser + '</span>').appendTo($('.tweethead'));
         });
 
+        //fetch new posts
+        $(document).on('click', '.tweetcount, .alltweets', function(){
+          $('.updatebox').slideUp('fast', function(){
+            $('.updatebox').remove();
+          });
+          $('#tweetuser').remove();
+          fetch();
+          streams.tweetCount = 0;
+        });
       });
 
     </script>
