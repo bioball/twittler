@@ -69,7 +69,9 @@
           event.preventDefault();
           var clickedUser = $(this).text().slice(1);
           fetch('users', clickedUser);
-          $('<span id="tweetuser"> / @' + clickedUser + '</span>').appendTo($('.tweethead'));
+          if($('#tweetuser').length === 0){
+            $('<span id="tweetuser"> / @' + clickedUser + '</span>').appendTo($('.tweethead'));
+          }
         });
 
         //fetch new posts
